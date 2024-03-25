@@ -28,6 +28,32 @@ struct ScrollingBackground
     }
 };
 
+struct Sprite {
+    SDL_Texture* texture;
+    std::vector<SDL_Rect> clips;
+    int currentFrame = 0;
+
+    void init(SDL_Texture* _texture, int frames, const int _clips [][4]) {
+        texture = _texture;
+
+        SDL_Rect clip;
+        for (int i = 0; i < frames; i++) {
+            clip.x = _clips[i][0];
+            clip.y = _clips[i][1];
+            clip.w = _clips[i][2];
+            clip.h = _clips[i][3];
+            clips.push_back(clip);
+        }
+    }
+    void tick() {
+        currentFrame = (currentFrame + 1) % clips.size();
+    }
+
+    const SDL_Rect* getCurrentClip() const {
+        return &(clips[currentFrame]);
+    }
+};
+
 struct Graphics
 {
     SDL_Renderer* renderer;
@@ -73,7 +99,11 @@ struct Graphics
     {
         SDL_RenderPresent(renderer);
     }
-
+    	void prepareSceneMove(SDL_Texture * background = nullptr)
+    {
+        SDL_RenderClear(renderer);
+        if (background != nullptr) SDL_RenderCopy( renderer, background, NULL, NULL);
+    }
     SDL_Texture* loadTexture(const char* filename)
     {
         SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Load texture%s", IMG_GetError());
@@ -123,6 +153,11 @@ struct Graphics
     {
         renderTexture(background.texture, background.scrollingOffset, 0);
         renderTexture(background.texture, background.scrollingOffset - background.width, 0);
+    }
+     void render(int x, int y, const Sprite& sprite) {
+        const SDL_Rect* clip = sprite.getCurrentClip();
+        SDL_Rect renderQuad = {x, y, clip->w, clip->h};
+        SDL_RenderCopy(renderer, sprite.texture, clip, &renderQuad);
     }
 
 };

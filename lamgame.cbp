@@ -35,7 +35,9 @@
 		<Unit filename="../../hiepsi/hiepsi/Untitled2.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="defs.h" />
 		<Unit filename="game.h" />
+		<Unit filename="graphics.h" />
 		<Unit filename="logic.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="mouse.h" />
