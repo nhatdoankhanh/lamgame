@@ -29,4 +29,20 @@ const int BIRD_CLIPS[][4] = {
 };
 const int BIRD_FRAMES = sizeof(BIRD_CLIPS)/sizeof(int)/4;
 
+const char* ANIME_SPRITE_FILE = "imagemove.png";
+const int ANIME_CLIPS[][4] = {
+    {0, 0, 130, 190},
+    {140, 0, 130, 190},
+    {280, 0, 130, 190},
+    {420, 0, 130, 190},
+    {560, 0, 130, 190},
+    {0, 200, 130, 190},
+    {140, 200, 130, 190},
+    {280, 200, 130, 190},
+    {420, 200, 130, 190},
+    {560, 200, 130, 190},
+
+};
+const int ANIME_FRAMES = sizeof(ANIME_CLIPS) / sizeof(int) / 4;
+
 #endif
