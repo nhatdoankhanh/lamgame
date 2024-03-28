@@ -1,14 +1,15 @@
 # depslib dependency file v1.0
-1711300706 source:f:\lamgame\lamgame\main.cpp
+1711638160 source:f:\lamgame\lamgame\main.cpp
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
 	"graphics.h"
 	"defs.h"
+	"mix.h"
 
 1709957072 f:\lamgame\lamgame\def.h
 
-1711300354 f:\lamgame\lamgame\graphics.h
+1711636565 f:\lamgame\lamgame\graphics.h
 	<SDL.h>
 	<SDL_image.h>
 	"defs.h"
@@ -18,7 +19,11 @@
 
 1710072149 f:\lamgame\lamgame\logic.h
 
-1711300470 f:\lamgame\lamgame\defs.h
+1711381575 f:\lamgame\lamgame\defs.h
 
 1710469305 f:\lamgame\lamgame\game.h
+
+1711638275 f:\lamgame\lamgame\mix.h
+	<SDL_mixer.h>
+	"graphics.h"
 
