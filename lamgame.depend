@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1711638160 source:f:\lamgame\lamgame\main.cpp
+1712250647 source:f:\lamgame\lamgame\main.cpp
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>

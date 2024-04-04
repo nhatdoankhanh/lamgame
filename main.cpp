@@ -37,8 +37,15 @@ int main(int argc, char *argv[])
     bool quit = false;
     SDL_Event e;
     while( !quit ) {
+        bool ch = false;
         while( SDL_PollEvent( &e ) != 0 ) {
             if( e.type == SDL_QUIT ) quit = true;
+            else if(e.type == SDL_MOUSEBUTTONDOWN)
+              if(e.button.button == SDL_BUTTON_RIGHT)
+            {
+                ch = true;
+            }
+
         }
         anime.tick();
         bird.tick();
@@ -49,15 +56,39 @@ int main(int argc, char *argv[])
         graphics.renderTexture(menugame1, 200, 150);
         SDL_RenderPresent(graphics.renderer);
         graphics.presentScene();
-
-
+        if(ch == true)
+            {
+                SDL_DestroyTexture(menugame1);
+                SDL_DestroyTexture( background.texture );
+                SDL_DestroyTexture( birdTexture ); birdTexture = nullptr;
+                SDL_DestroyTexture( animeTexture ); animeTexture = nullptr;
+                SDL_RenderClear(graphics.renderer);
+            }
+         SDL_Delay(20);
+    }
+    SDL_RenderClear(graphics.renderer);
+    SDL_Texture* mapgame = graphics.loadTexture("mapplayer.png");
+    SDL_RenderCopy( graphics.renderer,mapgame, NULL, NULL);
+    SDL_RenderPresent(graphics.renderer);
+    graphics.presentScene();
+    bool endgame = false;
+    while( !endgame ) {
+        while( SDL_PollEvent( &e ) != 0 ) {
+            if( e.type == SDL_QUIT ) endgame = true;
+        }
+        SDL_RenderCopy( graphics.renderer,mapgame, NULL, NULL);
+        SDL_RenderPresent(graphics.renderer);
+        graphics.presentScene();
         SDL_Delay(20);
     }
-    SDL_DestroyTexture(menugame1);
+
+   /* SDL_DestroyTexture(menugame1);
     SDL_DestroyTexture( background.texture );
     SDL_DestroyTexture( birdTexture ); birdTexture = nullptr;
     SDL_DestroyTexture( animeTexture ); animeTexture = nullptr;
+    */
     if (mixer.gMusic != nullptr) Mix_FreeMusic( mixer.gMusic );
     graphics.quit();
+    mixer.quitMixer();
     return 0;
 }
