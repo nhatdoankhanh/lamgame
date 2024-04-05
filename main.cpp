@@ -44,6 +44,7 @@ int main(int argc, char *argv[])
               if(e.button.button == SDL_BUTTON_RIGHT)
             {
                 ch = true;
+                quit = true;
             }
 
         }
@@ -53,7 +54,7 @@ int main(int argc, char *argv[])
         graphics.render(background);
         graphics.render(0, 410, anime);
         graphics.render(0, 200, bird);
-        graphics.renderTexture(menugame1, 200, 150);
+        graphics.renderTexture(menugame1, 400, 300);
         SDL_RenderPresent(graphics.renderer);
         graphics.presentScene();
         if(ch == true)
@@ -66,8 +67,7 @@ int main(int argc, char *argv[])
             }
          SDL_Delay(20);
     }
-    SDL_RenderClear(graphics.renderer);
-    SDL_Texture* mapgame = graphics.loadTexture("mapplayer.png");
+    SDL_Texture* mapgame = graphics.loadTexture("mapgame1.png");
     SDL_RenderCopy( graphics.renderer,mapgame, NULL, NULL);
     SDL_RenderPresent(graphics.renderer);
     graphics.presentScene();
