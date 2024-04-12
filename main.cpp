@@ -5,6 +5,7 @@
 #include "graphics.h"
 #include "defs.h"
 #include "mix.h"
+#include "player.h"
 
 using namespace std;
 
@@ -30,6 +31,9 @@ int main(int argc, char *argv[])
     SDL_Texture* animeTexture = graphics.loadTexture(ANIME_SPRITE_FILE);
     anime.init(animeTexture, ANIME_FRAMES, ANIME_CLIPS);
 
+    Sprite playerr;
+    SDL_Texture* playerTexture = graphics.loadTexture(PLAYER_FILE);
+    playerr.init(playerTexture, PLAYERR_FRAMES, PLAYER_CLIP_RIGHT);
 
     SDL_Texture* menugame1 = graphics.loadTexture("menu1.png");
 
@@ -52,8 +56,9 @@ int main(int argc, char *argv[])
         bird.tick();
         background.scroll(1);
         graphics.render(background);
-        graphics.render(0, 410, anime);
+        graphics.render(0, 400, anime);
         graphics.render(0, 200, bird);
+     //   graphics.render(0, 300, playergame);
         graphics.renderTexture(menugame1, 400, 300);
         SDL_RenderPresent(graphics.renderer);
         graphics.presentScene();
@@ -90,5 +95,7 @@ int main(int argc, char *argv[])
     if (mixer.gMusic != nullptr) Mix_FreeMusic( mixer.gMusic );
     graphics.quit();
     mixer.quitMixer();
+    Player player;
+
     return 0;
 }
