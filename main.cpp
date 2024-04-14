@@ -6,6 +6,7 @@
 #include "defs.h"
 #include "mix.h"
 #include "player.h"
+#include "input.h"
 
 using namespace std;
 
@@ -13,6 +14,9 @@ int main(int argc, char *argv[])
 {
     Graphics graphics;
     graphics.init();
+
+    Input input;
+    input.init();
 
     Mixer mixer;
     mixer.initMixer();
@@ -83,6 +87,7 @@ int main(int argc, char *argv[])
         }
         SDL_RenderCopy( graphics.renderer,mapgame, NULL, NULL);
         SDL_RenderPresent(graphics.renderer);
+        input.get();
         graphics.presentScene();
         SDL_Delay(20);
     }
