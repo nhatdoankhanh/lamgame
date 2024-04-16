@@ -7,11 +7,14 @@
 #include "player.h"
 #include<SDL_mixer.h>
 #include "logic.h"
+#include <SDL_ttf.h>
 
 using namespace std;
 
 int main(int argc, char *argv[])
 {
+
+    srand((unsigned int)time(NULL));
     Graphics graphics;
     graphics.init();
 
@@ -37,6 +40,10 @@ int main(int argc, char *argv[])
     playerr.init(playerTexture, PLAYERR_FRAMES, PLAYER_CLIP_RIGHT);
 
     SDL_Texture* menugame1 = graphics.loadTexture("menu1.png");
+     TTF_Font* font = graphics.loadFont("Purisa-BoldOblique.ttf", 100);
+    SDL_Color color = {255, 255, 0, 0};
+    SDL_Texture* helloText = graphics.renderText("Hello", font, color);
+     graphics.renderTexture(helloText, 400, 400);
 
 
     bool quit = false;
@@ -61,6 +68,8 @@ int main(int argc, char *argv[])
         graphics.render(0, 200, bird);
         graphics.renderTexture(menugame1, 200, 200);
         SDL_RenderPresent(graphics.renderer);
+        graphics.renderTexture(helloText, 400, 400);
+
         graphics.presentScene();
         if(ch == true)
             {
@@ -70,7 +79,7 @@ int main(int argc, char *argv[])
                 SDL_DestroyTexture( animeTexture ); animeTexture = nullptr;
                 SDL_RenderClear(graphics.renderer);
             }
-         SDL_Delay(20);
+         SDL_Delay(50);
     }
   /*  SDL_Texture* mapgame = graphics.loadTexture("mapgame1.png");
     SDL_RenderCopy( graphics.renderer,mapgame, NULL, NULL);
@@ -92,6 +101,9 @@ int main(int argc, char *argv[])
     SDL_DestroyTexture( background.texture );
     SDL_DestroyTexture( birdTexture ); birdTexture = nullptr;
     SDL_DestroyTexture( animeTexture ); animeTexture = nullptr;
+    SDL_DestroyTexture( helloText );
+    TTF_CloseFont( font );
+
     if (mixer.gMusic != nullptr) Mix_FreeMusic( mixer.gMusic );
     graphics.quit();
     mixer.quitMixer();

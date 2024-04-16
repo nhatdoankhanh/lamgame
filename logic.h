@@ -6,8 +6,17 @@
 #include <algorithm>
 #include"graphics.h"
 #include"player.h"
+#include <cstdlib>
+#include <ctime>
+#include<iostream>
 
 using namespace std;
+
+int x = 20, y = 20;
+char direction;
+
+
+
 
 const int MAP_GAME1[1575][4] = {
 {0, 0, 20, 20},{0, 20, 20, 20},{0, 40, 20, 20},{0, 60, 20, 20},{0, 80, 20, 20},{0, 100, 20, 20},{0, 120, 20, 20},{0, 140, 20, 20},{0, 160, 20, 20},{0, 180, 20, 20},{0, 200, 20, 20},{0, 220, 20, 20},{0, 240, 20, 20},{0, 260, 20, 20},{0, 280, 20, 20},{0, 300, 20, 20},{0, 320, 20, 20},{0, 340, 20, 20},{0, 360, 20, 20},{0, 380, 20, 20},{0, 400, 20, 20},{0, 420, 20, 20},{0, 440, 20, 20},{0, 460, 20, 20},{0, 480, 20, 20},{0, 500, 20, 20},{0, 520, 20, 20},{0, 540, 20, 20},{0, 560, 20, 20},{0, 580, 20, 20},{0, 600, 20, 20},{0, 620, 20, 20},{0, 640, 20, 20},{0, 660, 20, 20},{0, 680, 20, 20},
@@ -96,6 +105,12 @@ const int GAME_WAY[35][45]
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 };
 
+struct Point
+{
+    int x, y;
+};
+
+
 int n, m, x1, y1, x2, y2;
 int a[1001][1001];
 bool visited[1001][1001];
@@ -149,22 +164,47 @@ void shortestWay() {
     }
 }
 
-/*void initPlayer(Graphics &graphics)
-  {
-    SDL_Texture* playerrTexture = graphics.loadTexture(PLAYER_FILE);
-    playerr.init(playerrTexture, PLAYERR_FRAMES, PLAYER_CLIP_RIGHT);
-    SDL_Texture* playerlTexture = graphics.loadTexture(PLAYER_FILE);
-    playerl.init(playerlTexture, PLAYERL_FRAMES, PLAYER_CLIP_LEFT);
-    SDL_Texture* playertTexture = graphics.loadTexture(PLAYER_FILE);
-    playert.init(playertTexture, PLAYERT_FRAMES, PLAYER_CLIP_TOP);
-    SDL_Texture* playerbTexture = graphics.loadTexture(PLAYER_FILE);
-    playerb.init(playerbTexture, PLAYERB_FRAMES, PLAYER_CLIP_BOT);
 
-  }
-  */
+ bool check(int x, int y)
+ {
+     return (GAME_WAY[y / 20][x / 20] == 0);
+ }
+
+ Point ramdonEvent()
+{
+    Point point;
+    int d1 = rand() % 900;
+    int d2 = rand() % 700;
+    while(!check(d1, d2))
+    {
+        d1 = rand() % 900;
+        d2 = rand() % 700;
+    }
+    point.x = (d1 / 20) * 20 ;
+    point.y = (d2 / 20) * 20;
+    std::cout << point.x << " " << point.y << std::endl;
+    return point;
+}
+
+Point Papple1 = ramdonEvent();
+Point Pbananas1 = ramdonEvent();
+Point Pkiwi1 = ramdonEvent();
+Point Pmelon1 = ramdonEvent();
+
+Point Papple2 = ramdonEvent();
+Point Pbananas2 = ramdonEvent();
+Point Pkiwi2 = ramdonEvent();
+Point Pmelon2 = ramdonEvent();
+
+Point Papple3 = ramdonEvent();
+Point Pbananas3 = ramdonEvent();
+Point Pkiwi3 = ramdonEvent();
+Point Pmelon3 = ramdonEvent();
+
 
 void playgame(Graphics &graphics)
 {
+
             bool quit = false;
             SDL_Event e;
             Sprite playerr;
@@ -179,7 +219,16 @@ void playgame(Graphics &graphics)
             playert.init(playertTexture, PLAYERT_FRAMES, PLAYER_CLIP_TOP);
             SDL_Texture* playerbTexture = graphics.loadTexture(PLAYER_FILE);
             playerb.init(playerbTexture, PLAYERB_FRAMES, PLAYER_CLIP_BOT);
+            SDL_Texture* apple = graphics.loadTexture("apple.png");
+            SDL_Texture* bananas = graphics.loadTexture("bananas.png");
+            SDL_Texture* melon = graphics.loadTexture("melon.png");
+            SDL_Texture* kiwi = graphics.loadTexture("kiwi.png");
             SDL_Texture* mapgame = graphics.loadTexture("mapgame1.png");
+            TTF_Font* font = graphics.loadFont("Purisa-BoldOblique.ttf", 100);
+            SDL_Color color = {255, 255, 0, 0};
+            SDL_Texture* helloText = graphics.renderText("Hello", font, color);
+            graphics.renderTexture(helloText, 400, 400);
+
             SDL_RenderCopy( graphics.renderer,mapgame, NULL, NULL);
             SDL_RenderPresent(graphics.renderer);
             graphics.presentScene();
@@ -196,29 +245,76 @@ void playgame(Graphics &graphics)
                         switch( e.key.keysym.sym )
                         {
                             case SDLK_UP:
-
+                            if(y - 20 >= 0 && check(x, y - 20) == 1){
+                                y = y - 20;
+                                direction = 'T';
+                            }
                             break;
 
                             case SDLK_DOWN:
+                            if(y + 20 < 700 && check(x, y + 20) == 1){
+                                y = y + 20;
+                                direction = 'B';
+                            }
 
                             break;
 
                             case SDLK_LEFT:
-
+                            if(x - 20 >= 0 && check(x - 20, y)) {
+                                x = x - 20;
+                                direction = 'L';
+                            }
                             break;
 
                             case SDLK_RIGHT:
+                            if(x + 20 < 900 && check(x + 20, y)){
+                                x = x + 20;
+                                direction = 'R';
+                            }
 
                             break;
                         }
                     }
                 }
                SDL_RenderCopy( graphics.renderer,mapgame, NULL, NULL);
-               playerb.tick();
-               graphics.render(20, 20, playerb);
-               SDL_RenderPresent(graphics.renderer);
-               graphics.presentScene();
-               SDL_Delay(30);
+               graphics.renderTexture(apple, Papple1.x, Papple1.y);
+               graphics.renderTexture(bananas, Pbananas1.x, Pbananas1.y);
+               graphics.renderTexture(kiwi, Pkiwi1.x, Pkiwi1.y);
+               graphics.renderTexture(melon, Pmelon1.x, Pmelon1.y);
+
+               graphics.renderTexture(apple, Papple2.x, Papple2.y);
+               graphics.renderTexture(bananas, Pbananas2.x, Pbananas2.y);
+               graphics.renderTexture(kiwi, Pkiwi2.x, Pkiwi2.y);
+               graphics.renderTexture(melon, Pmelon2.x, Pmelon2.y);
+
+               graphics.renderTexture(apple, Papple3.x, Papple3.y);
+               graphics.renderTexture(bananas, Pbananas3.x, Pbananas3.y);
+               graphics.renderTexture(kiwi, Pkiwi3.x, Pkiwi3.y);
+               graphics.renderTexture(melon, Pmelon3.x, Pmelon3.y);
+
+               if(direction == 'R')
+               {
+                   playerr.tick();
+                   graphics.render(x , y, playerr);
+               }
+               else if(direction == 'L')
+               {
+                   playerl.tick();
+                   graphics.render(x , y, playerl);
+               }
+               else if(direction == 'T')
+               {
+                   playert.tick();
+                   graphics.render(x , y, playert);
+               }
+               else
+               {
+                   playerb.tick();
+                   graphics.render(x , y, playerb);
+               }
+              graphics.renderTexture(helloText, 400, 400);
+              graphics.presentScene();
+               SDL_Delay(200);
 
 
         }

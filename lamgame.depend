@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1713240189 source:f:\lamgame\lamgame\main.cpp
+1713283314 source:f:\lamgame\lamgame\main.cpp
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
@@ -9,26 +9,31 @@
 	"player.h"
 	<SDL_mixer.h>
 	"logic.h"
+	<SDL_ttf.h>
 
 1709957072 f:\lamgame\lamgame\def.h
 
-1712942285 f:\lamgame\lamgame\graphics.h
+1713282695 f:\lamgame\lamgame\graphics.h
 	<SDL.h>
 	<SDL_image.h>
 	"defs.h"
 	<vector>
+	<SDL_ttf.h>
 
 1710072295 source:f:\hiepsi\hiepsi\untitled2.c
 
-1713241396 f:\lamgame\lamgame\logic.h
+1713283435 f:\lamgame\lamgame\logic.h
 	<vector>
 	<queue>
 	<utility>
 	<algorithm>
 	"graphics.h"
 	"player.h"
+	<cstdlib>
+	<ctime>
+	<iostream>
 
-1713201599 f:\lamgame\lamgame\defs.h
+1713254084 f:\lamgame\lamgame\defs.h
 
 1710469305 f:\lamgame\lamgame\game.h
 

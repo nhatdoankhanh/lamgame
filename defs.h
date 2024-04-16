@@ -51,6 +51,39 @@ const int ANIME_FRAMES = sizeof(ANIME_CLIPS) / sizeof(int) / 4;
 
 const char* PLAYER_FILE = "player.png";
 
+
+const int PLAYER_CLIP_TOP[][4] =
+{
+{0, 44, 22, 21},
+{21, 44, 22, 21},
+{42, 44, 22, 21},
+{63, 44, 22, 21},
+{84, 44, 22, 21},
+{105, 44, 22, 21},
+{126, 44, 22, 21},
+{147, 44, 22, 21},
+{168, 44, 22, 21},
+{189, 44, 22, 21},
+};
+
+const int PLAYERT_FRAMES = sizeof(PLAYER_CLIP_TOP) / sizeof(int) / 4;
+
+const int PLAYER_CLIP_RIGHT[][4] =
+{
+{0, 66, 22, 21},
+{21, 66, 22, 21},
+{42, 66, 22, 21},
+{63, 66, 22, 21},
+{84, 66, 22, 21},
+{105, 66, 22, 21},
+{126, 66, 22, 21},
+{147, 66, 22, 21},
+{168, 66, 22, 21},
+{189, 66, 22, 21},
+};
+
+const int PLAYERR_FRAMES = sizeof(PLAYER_CLIP_RIGHT) / sizeof(int) / 4;
+
 const int PLAYER_CLIP_BOT[][4] =
 {
 {0, 0, 22, 21},
@@ -69,51 +102,20 @@ const int PLAYERB_FRAMES = sizeof(PLAYER_CLIP_BOT) / sizeof(int) / 4;
 
 const int PLAYER_CLIP_LEFT[][4] =
 {
-{0, 44, 22, 21},
-{21, 44, 22, 21},
-{42, 44, 22, 21},
-{63, 44, 22, 21},
-{84, 44, 22, 21},
-{105, 44, 22, 21},
-{126, 44, 22, 21},
-{147, 44, 22, 21},
-{168, 44, 22, 21},
-{189, 44, 22, 21},
+{0, 22, 22, 21},
+{21, 22, 22, 21},
+{42, 22, 22, 21},
+{63, 22, 22, 21},
+{84, 22, 22, 21},
+{105, 22, 22, 21},
+{126, 22, 22, 21},
+{147, 22, 22, 21},
+{168, 22, 22, 21},
+{189, 22, 22, 21},
 };
 
 const int PLAYERL_FRAMES = sizeof(PLAYER_CLIP_LEFT) / sizeof(int) / 4;
 
-const int PLAYER_CLIP_TOP[][4] =
-{
-{0, 66, 22, 21},
-{21, 66, 22, 21},
-{42, 66, 22, 21},
-{63, 66, 22, 21},
-{84, 66, 22, 21},
-{105, 66, 22, 21},
-{126, 66, 22, 21},
-{147, 66, 22, 21},
-{168, 66, 22, 21},
-{189, 66, 22, 21},
-};
-
-const int PLAYERT_FRAMES = sizeof(PLAYER_CLIP_TOP) / sizeof(int) / 4;
-
-const int PLAYER_CLIP_RIGHT[][4] =
-{
-{0, 0, 22, 21},
-{21, 0, 22, 21},
-{42, 0, 22, 21},
-{63, 0, 22, 21},
-{84, 0, 22, 21},
-{105, 0, 22, 21},
-{126, 0, 22, 21},
-{147, 0, 22, 21},
-{168, 0, 22, 21},
-{189, 0, 22, 21},
-};
-
-const int PLAYERR_FRAMES = sizeof(PLAYER_CLIP_RIGHT) / sizeof(int) / 4;
 
 
 #endif
