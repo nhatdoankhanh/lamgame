@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
@@ -6,7 +5,8 @@
 #include "defs.h"
 #include "mix.h"
 #include "player.h"
-#include "input.h"
+#include<SDL_mixer.h>
+#include "logic.h"
 
 using namespace std;
 
@@ -14,9 +14,6 @@ int main(int argc, char *argv[])
 {
     Graphics graphics;
     graphics.init();
-
-    Input input;
-    input.init();
 
     Mixer mixer;
     mixer.initMixer();
@@ -62,8 +59,7 @@ int main(int argc, char *argv[])
         graphics.render(background);
         graphics.render(0, 400, anime);
         graphics.render(0, 200, bird);
-     //   graphics.render(0, 300, playergame);
-        graphics.renderTexture(menugame1, 400, 300);
+        graphics.renderTexture(menugame1, 200, 200);
         SDL_RenderPresent(graphics.renderer);
         graphics.presentScene();
         if(ch == true)
@@ -76,7 +72,7 @@ int main(int argc, char *argv[])
             }
          SDL_Delay(20);
     }
-    SDL_Texture* mapgame = graphics.loadTexture("mapgame1.png");
+  /*  SDL_Texture* mapgame = graphics.loadTexture("mapgame1.png");
     SDL_RenderCopy( graphics.renderer,mapgame, NULL, NULL);
     SDL_RenderPresent(graphics.renderer);
     graphics.presentScene();
@@ -87,20 +83,17 @@ int main(int argc, char *argv[])
         }
         SDL_RenderCopy( graphics.renderer,mapgame, NULL, NULL);
         SDL_RenderPresent(graphics.renderer);
-        input.get();
         graphics.presentScene();
         SDL_Delay(20);
     }
-
-   /* SDL_DestroyTexture(menugame1);
+    */
+    playgame(graphics);
+    SDL_DestroyTexture(menugame1);
     SDL_DestroyTexture( background.texture );
     SDL_DestroyTexture( birdTexture ); birdTexture = nullptr;
     SDL_DestroyTexture( animeTexture ); animeTexture = nullptr;
-    */
     if (mixer.gMusic != nullptr) Mix_FreeMusic( mixer.gMusic );
     graphics.quit();
     mixer.quitMixer();
-    Player player;
-
     return 0;
 }

@@ -3,9 +3,13 @@
 
 #define BACKGROUND_IMG "back.jpg"
 
+
+#define MAX_KEYBOARD_KEYS 350
+
 const int SCREEN_WIDTH = 900;
 const int SCREEN_HEIGHT = 700;
 const char* WINDOW_TITLE = "Hello World!";
+
 
 
 const char*  BIRD_SPRITE_FILE = "83127-sprite-area-line-animated-bird-film.png";

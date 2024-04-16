@@ -3,11 +3,11 @@
 #include "graphics.h"
 #include "defs.h"
 
-struct Player{
+/*struct Player{
 
-  Graphics graphics;
-  void initPlayer()
-  {
+  int Starting_position_X, Starting_position_Y;
+  int Ending_position_X, Ending_position_Y;
 
-  }
+};
+*/
 #endif

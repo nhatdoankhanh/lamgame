@@ -1,15 +1,10 @@
-#ifndef _LOGIC__H
-#define _LOGIC__H
-#include<vector>
-#include<queue>
-#include<utility>
-#include <algorithm>
-#include"graphics.h"
-#include"player.h"
+#ifndef _MAP__H
+#define _MAP__H
 
-using namespace std;
 
-const int MAP_GAME1[1575][4] = {
+
+struct Map{
+int MAP_GAME1[1575][4] = {
 {0, 0, 20, 20},{0, 20, 20, 20},{0, 40, 20, 20},{0, 60, 20, 20},{0, 80, 20, 20},{0, 100, 20, 20},{0, 120, 20, 20},{0, 140, 20, 20},{0, 160, 20, 20},{0, 180, 20, 20},{0, 200, 20, 20},{0, 220, 20, 20},{0, 240, 20, 20},{0, 260, 20, 20},{0, 280, 20, 20},{0, 300, 20, 20},{0, 320, 20, 20},{0, 340, 20, 20},{0, 360, 20, 20},{0, 380, 20, 20},{0, 400, 20, 20},{0, 420, 20, 20},{0, 440, 20, 20},{0, 460, 20, 20},{0, 480, 20, 20},{0, 500, 20, 20},{0, 520, 20, 20},{0, 540, 20, 20},{0, 560, 20, 20},{0, 580, 20, 20},{0, 600, 20, 20},{0, 620, 20, 20},{0, 640, 20, 20},{0, 660, 20, 20},{0, 680, 20, 20},
 {20, 0, 20, 20},{20, 20, 20, 20},{20, 40, 20, 20},{20, 60, 20, 20},{20, 80, 20, 20},{20, 100, 20, 20},{20, 120, 20, 20},{20, 140, 20, 20},{20, 160, 20, 20},{20, 180, 20, 20},{20, 200, 20, 20},{20, 220, 20, 20},{20, 240, 20, 20},{20, 260, 20, 20},{20, 280, 20, 20},{20, 300, 20, 20},{20, 320, 20, 20},{20, 340, 20, 20},{20, 360, 20, 20},{20, 380, 20, 20},{20, 400, 20, 20},{20, 420, 20, 20},{20, 440, 20, 20},{20, 460, 20, 20},{20, 480, 20, 20},{20, 500, 20, 20},{20, 520, 20, 20},{20, 540, 20, 20},{20, 560, 20, 20},{20, 580, 20, 20},{20, 600, 20, 20},{20, 620, 20, 20},{20, 640, 20, 20},{20, 660, 20, 20},{20, 680, 20, 20},
 {40, 0, 20, 20},{40, 20, 20, 20},{40, 40, 20, 20},{40, 60, 20, 20},{40, 80, 20, 20},{40, 100, 20, 20},{40, 120, 20, 20},{40, 140, 20, 20},{40, 160, 20, 20},{40, 180, 20, 20},{40, 200, 20, 20},{40, 220, 20, 20},{40, 240, 20, 20},{40, 260, 20, 20},{40, 280, 20, 20},{40, 300, 20, 20},{40, 320, 20, 20},{40, 340, 20, 20},{40, 360, 20, 20},{40, 380, 20, 20},{40, 400, 20, 20},{40, 420, 20, 20},{40, 440, 20, 20},{40, 460, 20, 20},{40, 480, 20, 20},{40, 500, 20, 20},{40, 520, 20, 20},{40, 540, 20, 20},{40, 560, 20, 20},{40, 580, 20, 20},{40, 600, 20, 20},{40, 620, 20, 20},{40, 640, 20, 20},{40, 660, 20, 20},{40, 680, 20, 20},
@@ -57,7 +52,7 @@ const int MAP_GAME1[1575][4] = {
 {880, 0, 20, 20},{880, 20, 20, 20},{880, 40, 20, 20},{880, 60, 20, 20},{880, 80, 20, 20},{880, 100, 20, 20},{880, 120, 20, 20},{880, 140, 20, 20},{880, 160, 20, 20},{880, 180, 20, 20},{880, 200, 20, 20},{880, 220, 20, 20},{880, 240, 20, 20},{880, 260, 20, 20},{880, 280, 20, 20},{880, 300, 20, 20},{880, 320, 20, 20},{880, 340, 20, 20},{880, 360, 20, 20},{880, 380, 20, 20},{880, 400, 20, 20},{880, 420, 20, 20},{880, 440, 20, 20},{880, 460, 20, 20},{880, 480, 20, 20},{880, 500, 20, 20},{880, 520, 20, 20},{880, 540, 20, 20},{880, 560, 20, 20},{880, 580, 20, 20},{880, 600, 20, 20},{880, 620, 20, 20},{880, 640, 20, 20},{880, 660, 20, 20},{880, 680, 20, 20}
 };
 
-const int GAME_WAY[35][45]
+int GAME_WAY[35][45]
 {
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1,
@@ -96,133 +91,4 @@ const int GAME_WAY[35][45]
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 };
 
-int n, m, x1, y1, x2, y2;
-int a[1001][1001];
-bool visited[1001][1001];
-int d[1001][1001];
-int dx[] = {-1, 0, 0, 1};
-int dy[] = {0, -1, 1, 0};
-vector<pair<int, int>> shortest_way;
-
-void bfs(int sx, int sy, int ex, int ey) {
-    memset(visited, false, sizeof(visited));
-    queue<pair<int, int>> q;
-    q.push({sx, sy});
-    visited[sx][sy] = true;
-    d[sx][sy] = 0;
-    while(!q.empty()) {
-        pair<int, int> top = q.front();
-        q.pop();
-        for(int k = 0; k < 4; k++) {
-            int i1 = top.first + dx[k];
-            int j1 = top.second + dy[k];
-            if(i1 >= 0 && i1 < n && j1 >= 0 && j1 < m && !visited[i1][j1] && a[i1][j1] != 1) {
-                visited[i1][j1] = true;
-                d[i1][j1] = d[top.first][top.second] + 1;
-                q.push({i1, j1});
-                if(i1 == ex && j1 == ey) {
-                    return;
-                }
-            }
-        }
-    }
-}
-
-void shortestWay() {
-    int x = x2, y = y2;
-    shortest_way.push_back({x, y});
-    while (!(x == x1 && y == y1)) {
-        for (int k = 0; k < 4; k++) {
-            int i1 = x + dx[k];
-            int j1 = y + dy[k];
-            if (i1 >= 0 && i1 < n && j1 >= 0 && j1 < m && d[i1][j1] == d[x][y] - 1) {
-                x = i1;
-                y = j1;
-                shortest_way.push_back({x, y});
-                break;
-            }
-        }
-    }
-    reverse(shortest_way.begin(), shortest_way.end());
-    for(auto p : shortest_way) {
-        cout << p.first << " " << p.second << endl;
-    }
-}
-
-/*void initPlayer(Graphics &graphics)
-  {
-    SDL_Texture* playerrTexture = graphics.loadTexture(PLAYER_FILE);
-    playerr.init(playerrTexture, PLAYERR_FRAMES, PLAYER_CLIP_RIGHT);
-    SDL_Texture* playerlTexture = graphics.loadTexture(PLAYER_FILE);
-    playerl.init(playerlTexture, PLAYERL_FRAMES, PLAYER_CLIP_LEFT);
-    SDL_Texture* playertTexture = graphics.loadTexture(PLAYER_FILE);
-    playert.init(playertTexture, PLAYERT_FRAMES, PLAYER_CLIP_TOP);
-    SDL_Texture* playerbTexture = graphics.loadTexture(PLAYER_FILE);
-    playerb.init(playerbTexture, PLAYERB_FRAMES, PLAYER_CLIP_BOT);
-
-  }
-  */
-
-void playgame(Graphics &graphics)
-{
-            bool quit = false;
-            SDL_Event e;
-            Sprite playerr;
-            Sprite playerl;
-            Sprite playert;
-            Sprite playerb;
-            SDL_Texture* playerrTexture = graphics.loadTexture(PLAYER_FILE);
-            playerr.init(playerrTexture, PLAYERR_FRAMES, PLAYER_CLIP_RIGHT);
-            SDL_Texture* playerlTexture = graphics.loadTexture(PLAYER_FILE);
-            playerl.init(playerlTexture, PLAYERL_FRAMES, PLAYER_CLIP_LEFT);
-            SDL_Texture* playertTexture = graphics.loadTexture(PLAYER_FILE);
-            playert.init(playertTexture, PLAYERT_FRAMES, PLAYER_CLIP_TOP);
-            SDL_Texture* playerbTexture = graphics.loadTexture(PLAYER_FILE);
-            playerb.init(playerbTexture, PLAYERB_FRAMES, PLAYER_CLIP_BOT);
-            SDL_Texture* mapgame = graphics.loadTexture("mapgame1.png");
-            SDL_RenderCopy( graphics.renderer,mapgame, NULL, NULL);
-            SDL_RenderPresent(graphics.renderer);
-            graphics.presentScene();
-            while( !quit )
-            {
-                while( SDL_PollEvent( &e ) != 0 )
-                {
-                    if( e.type == SDL_QUIT )
-                    {
-                        quit = true;
-                    }
-                    else if( e.type == SDL_KEYDOWN )
-                    {
-                        switch( e.key.keysym.sym )
-                        {
-                            case SDLK_UP:
-
-                            break;
-
-                            case SDLK_DOWN:
-
-                            break;
-
-                            case SDLK_LEFT:
-
-                            break;
-
-                            case SDLK_RIGHT:
-
-                            break;
-                        }
-                    }
-                }
-               SDL_RenderCopy( graphics.renderer,mapgame, NULL, NULL);
-               playerb.tick();
-               graphics.render(20, 20, playerb);
-               SDL_RenderPresent(graphics.renderer);
-               graphics.presentScene();
-               SDL_Delay(30);
-
-
-        }
-}
-
-
-#endif //
+#endif // _MAP__H
