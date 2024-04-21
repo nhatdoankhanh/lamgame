@@ -8,6 +8,8 @@
 #include<SDL_mixer.h>
 #include "logic.h"
 #include <SDL_ttf.h>
+#include <chrono>
+#include <thread>
 
 using namespace std;
 
@@ -40,10 +42,10 @@ int main(int argc, char *argv[])
     playerr.init(playerTexture, PLAYERR_FRAMES, PLAYER_CLIP_RIGHT);
 
     SDL_Texture* menugame1 = graphics.loadTexture("menu1.png");
-     TTF_Font* font = graphics.loadFont("Purisa-BoldOblique.ttf", 100);
-    SDL_Color color = {255, 255, 0, 0};
+  /*   TTF_Font* font = graphics.loadFont("Purisa-BoldOblique.ttf", 100);
+    SDL_Color color = {255, 0, 0, 255};
     SDL_Texture* helloText = graphics.renderText("Hello", font, color);
-     graphics.renderTexture(helloText, 400, 400);
+     graphics.renderTexture(helloText, 400, 400);*/
 
 
     bool quit = false;
@@ -68,7 +70,6 @@ int main(int argc, char *argv[])
         graphics.render(0, 200, bird);
         graphics.renderTexture(menugame1, 200, 200);
         SDL_RenderPresent(graphics.renderer);
-        graphics.renderTexture(helloText, 400, 400);
 
         graphics.presentScene();
         if(ch == true)
@@ -101,8 +102,7 @@ int main(int argc, char *argv[])
     SDL_DestroyTexture( background.texture );
     SDL_DestroyTexture( birdTexture ); birdTexture = nullptr;
     SDL_DestroyTexture( animeTexture ); animeTexture = nullptr;
-    SDL_DestroyTexture( helloText );
-    TTF_CloseFont( font );
+  //  TTF_CloseFont( font )
 
     if (mixer.gMusic != nullptr) Mix_FreeMusic( mixer.gMusic );
     graphics.quit();

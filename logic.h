@@ -9,10 +9,12 @@
 #include <cstdlib>
 #include <ctime>
 #include<iostream>
+#include <string>
+#include <chrono>
+#include <thread>
 
 using namespace std;
 
-int x = 20, y = 20;
 char direction;
 
 
@@ -108,20 +110,27 @@ const int GAME_WAY[35][45]
 struct Point
 {
     int x, y;
+
+    Point(){}
+
+    Point(int _x, int _y)
+    {
+        x = _x;
+        y = _y;
+    }
 };
 
 
-int n, m, x1, y1, x2, y2;
-int a[1001][1001];
+int n = 35, m = 45, x1, y1, x2, y2;
 bool visited[1001][1001];
-int d[1001][1001];
+long long d[10000][10000];
 int dx[] = {-1, 0, 0, 1};
 int dy[] = {0, -1, 1, 0};
 vector<pair<int, int>> shortest_way;
 
-void bfs(int sx, int sy, int ex, int ey) {
+int bfs(int sx, int sy, int ex, int ey) {
     memset(visited, false, sizeof(visited));
-    queue<pair<int, int>> q;
+    queue<pair<long , long>> q;
     q.push({sx, sy});
     visited[sx][sy] = true;
     d[sx][sy] = 0;
@@ -131,17 +140,19 @@ void bfs(int sx, int sy, int ex, int ey) {
         for(int k = 0; k < 4; k++) {
             int i1 = top.first + dx[k];
             int j1 = top.second + dy[k];
-            if(i1 >= 0 && i1 < n && j1 >= 0 && j1 < m && !visited[i1][j1] && a[i1][j1] != 1) {
+            if(i1 >= 0 && i1 < n && j1 >= 0 && j1 < m && !visited[i1][j1] && GAME_WAY[i1][j1] != 1) {
                 visited[i1][j1] = true;
                 d[i1][j1] = d[top.first][top.second] + 1;
                 q.push({i1, j1});
                 if(i1 == ex && j1 == ey) {
-                    return;
+                    return d[ex][ey];
                 }
             }
         }
+
     }
 }
+
 
 void shortestWay() {
     int x = x2, y = y2;
@@ -159,9 +170,6 @@ void shortestWay() {
         }
     }
     reverse(shortest_way.begin(), shortest_way.end());
-    for(auto p : shortest_way) {
-        cout << p.first << " " << p.second << endl;
-    }
 }
 
 
@@ -182,9 +190,11 @@ void shortestWay() {
     }
     point.x = (d1 / 20) * 20 ;
     point.y = (d2 / 20) * 20;
-    std::cout << point.x << " " << point.y << std::endl;
     return point;
 }
+Point pointstart(20, 20);
+
+Point pointend = ramdonEvent();
 
 Point Papple1 = ramdonEvent();
 Point Pbananas1 = ramdonEvent();
@@ -201,10 +211,46 @@ Point Pbananas3 = ramdonEvent();
 Point Pkiwi3 = ramdonEvent();
 Point Pmelon3 = ramdonEvent();
 
+bool checkapple1 = true;
+bool checkapple2 = true;
+bool checkapple3 = true;
+bool checkbananas1 = true;
+bool checkbananas2 = true;
+bool checkbananas3 = true;
+bool checkkiwi1 = true;
+bool checkkiwi2 = true;
+bool checkkiwi3 = true;
+bool checkmelon1 = true;
+bool checkmelon2 = true;
+bool checkmelon3 = true;
+
+
+using namespace std::chrono;
+auto countdown_time = seconds(bfs(pointstart.y / 20, pointstart.x / 20, pointend.y / 20, pointend.x / 20));
+auto start_time = steady_clock::now();
+
+void checkEvent()
+{
+    if((pointstart.x ==  Papple1.x && pointstart.y == Papple1.y))
+    {
+        pointstart = ramdonEvent();
+        checkapple1 = false;
+    }
+     if((pointstart.x ==  Papple2.x && pointstart.y == Papple2.y))
+    {
+        pointstart = ramdonEvent();
+        checkapple2 = false;
+    }
+     if((pointstart.x ==  Papple2.x && pointstart.y == Papple2.y))
+    {
+        pointstart = ramdonEvent();
+        checkapple2 = false;
+    }
+}
 
 void playgame(Graphics &graphics)
 {
-
+            cout << pointstart.y / 20 << " " << pointstart.x / 20 << " " <<  pointend.y / 20 << " " <<  pointend.x / 20 << " " << bfs(pointstart.x / 20, pointstart.y / 20, pointend.x / 20, pointend.y / 20) << endl;
             bool quit = false;
             SDL_Event e;
             Sprite playerr;
@@ -224,14 +270,15 @@ void playgame(Graphics &graphics)
             SDL_Texture* melon = graphics.loadTexture("melon.png");
             SDL_Texture* kiwi = graphics.loadTexture("kiwi.png");
             SDL_Texture* mapgame = graphics.loadTexture("mapgame1.png");
-            TTF_Font* font = graphics.loadFont("Purisa-BoldOblique.ttf", 100);
-            SDL_Color color = {255, 255, 0, 0};
-            SDL_Texture* helloText = graphics.renderText("Hello", font, color);
-            graphics.renderTexture(helloText, 400, 400);
+            SDL_Texture* itemend = graphics.loadTexture("itemend.png");
+            SDL_Color color = {255, 0, 0, 255};
+            TTF_Font* font = graphics.loadFont("font.ttf", 30);
+            SDL_Texture* Time = graphics.renderText("TIME : ", font, color);
 
             SDL_RenderCopy( graphics.renderer,mapgame, NULL, NULL);
             SDL_RenderPresent(graphics.renderer);
             graphics.presentScene();
+            auto start_time = steady_clock::now();
             while( !quit )
             {
                 while( SDL_PollEvent( &e ) != 0 )
@@ -245,30 +292,30 @@ void playgame(Graphics &graphics)
                         switch( e.key.keysym.sym )
                         {
                             case SDLK_UP:
-                            if(y - 20 >= 0 && check(x, y - 20) == 1){
-                                y = y - 20;
+                            if(pointstart.y - 20 >= 0 && check(pointstart.x, pointstart.y - 20) == 1){
+                                pointstart.y = pointstart.y - 20;
                                 direction = 'T';
                             }
                             break;
 
                             case SDLK_DOWN:
-                            if(y + 20 < 700 && check(x, y + 20) == 1){
-                                y = y + 20;
+                            if(pointstart.y + 20 < 700 && check(pointstart.x, pointstart.y + 20) == 1){
+                                pointstart.y = pointstart.y + 20;
                                 direction = 'B';
                             }
 
                             break;
 
                             case SDLK_LEFT:
-                            if(x - 20 >= 0 && check(x - 20, y)) {
-                                x = x - 20;
+                            if(pointstart.x - 20 >= 0 && check(pointstart.x - 20, pointstart.y)) {
+                                pointstart.x = pointstart.x - 20;
                                 direction = 'L';
                             }
                             break;
 
                             case SDLK_RIGHT:
-                            if(x + 20 < 900 && check(x + 20, y)){
-                                x = x + 20;
+                            if(pointstart.x + 20 < 900 && check(pointstart.x + 20, pointstart.y)){
+                                pointstart.x = pointstart.x + 20;
                                 direction = 'R';
                             }
 
@@ -277,44 +324,56 @@ void playgame(Graphics &graphics)
                     }
                 }
                SDL_RenderCopy( graphics.renderer,mapgame, NULL, NULL);
-               graphics.renderTexture(apple, Papple1.x, Papple1.y);
-               graphics.renderTexture(bananas, Pbananas1.x, Pbananas1.y);
-               graphics.renderTexture(kiwi, Pkiwi1.x, Pkiwi1.y);
-               graphics.renderTexture(melon, Pmelon1.x, Pmelon1.y);
+               auto current_time = steady_clock::now();
+               auto elapsed_time = duration_cast<seconds>(current_time - start_time);
+               auto time_left = countdown_time - elapsed_time;
+               if(checkapple1) graphics.renderTexture(apple, Papple1.x, Papple1.y);
+               if(checkbananas1) graphics.renderTexture(bananas, Pbananas1.x, Pbananas1.y);
+               if(checkkiwi1) graphics.renderTexture(kiwi, Pkiwi1.x, Pkiwi1.y);
+               if(checkmelon1) graphics.renderTexture(melon, Pmelon1.x, Pmelon1.y);
 
-               graphics.renderTexture(apple, Papple2.x, Papple2.y);
-               graphics.renderTexture(bananas, Pbananas2.x, Pbananas2.y);
-               graphics.renderTexture(kiwi, Pkiwi2.x, Pkiwi2.y);
-               graphics.renderTexture(melon, Pmelon2.x, Pmelon2.y);
+               if(checkapple2) graphics.renderTexture(apple, Papple2.x, Papple2.y);
+               if(checkbananas2) graphics.renderTexture(bananas, Pbananas2.x, Pbananas2.y);
+               if(checkkiwi2) graphics.renderTexture(kiwi, Pkiwi2.x, Pkiwi2.y);
+               if(checkmelon2) graphics.renderTexture(melon, Pmelon2.x, Pmelon2.y);
 
-               graphics.renderTexture(apple, Papple3.x, Papple3.y);
-               graphics.renderTexture(bananas, Pbananas3.x, Pbananas3.y);
-               graphics.renderTexture(kiwi, Pkiwi3.x, Pkiwi3.y);
-               graphics.renderTexture(melon, Pmelon3.x, Pmelon3.y);
-
+               if(checkapple3) graphics.renderTexture(apple, Papple3.x, Papple3.y);
+               if(checkbananas3) graphics.renderTexture(bananas, Pbananas3.x, Pbananas3.y);
+               if(checkkiwi3) graphics.renderTexture(kiwi, Pkiwi3.x, Pkiwi3.y);
+               if(checkmelon3) graphics.renderTexture(melon, Pmelon3.x, Pmelon3.y);
+               graphics.renderTexture(itemend, pointend.x, pointend.y);
+               checkEvent();
                if(direction == 'R')
                {
                    playerr.tick();
-                   graphics.render(x , y, playerr);
+                   graphics.render(pointstart.x, pointstart.y, playerr);
                }
                else if(direction == 'L')
                {
                    playerl.tick();
-                   graphics.render(x , y, playerl);
+                   graphics.render(pointstart.x, pointstart.y, playerl);
                }
                else if(direction == 'T')
                {
                    playert.tick();
-                   graphics.render(x , y, playert);
+                   graphics.render(pointstart.x  , pointstart.y, playert);
                }
                else
                {
                    playerb.tick();
-                   graphics.render(x , y, playerb);
+                   graphics.render(pointstart.x  , pointstart.y, playerb);
                }
-              graphics.renderTexture(helloText, 400, 400);
+
+             //  string str = to_string(currentTime);
+             //  char* cstr = str.c_str();
+             char buffer[50];
+             sprintf(buffer, "%d", time_left);
+
+              SDL_Texture* helloText = graphics.renderText(buffer, font, color);
+              graphics.renderTexture(Time, 540, 0);
+              graphics.renderTexture(helloText, 680, 0);
               graphics.presentScene();
-               SDL_Delay(200);
+              SDL_Delay(100);
 
 
         }
