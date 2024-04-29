@@ -16,7 +16,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
 
-    srand((unsigned int)time(NULL));
+    srand(time(NULL));
     Graphics graphics;
     graphics.init();
 

@@ -79,7 +79,7 @@ struct Graphics
             logErrorAndExit("CreateWindow", SDL_GetError());
         }
 
-        if(!IMG_Init(IMG_INIT_JPG || IMG_INIT_PNG))
+        if(!IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG))
         {
             logErrorAndExit("SDL_image error:", IMG_GetError());
         }
@@ -116,7 +116,7 @@ struct Graphics
     {
         SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Load texture%s", IMG_GetError());
 
-        SDL_Texture* texture = texture = IMG_LoadTexture(renderer, filename);
+        SDL_Texture* texture = IMG_LoadTexture(renderer, filename);
         if(texture == NULL)
         {
             SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_ERROR, "Load texture %s", IMG_GetError());
@@ -177,6 +177,7 @@ struct Graphics
                            SDL_LOG_PRIORITY_ERROR,
                            "Load font %s", TTF_GetError());
         }
+        return gFont;
     }
 
 
@@ -199,7 +200,11 @@ struct Graphics
         SDL_FreeSurface( textSurface );
         return texture;
     }
-
-
+    void fillRed(int x, int y) {
+        SDL_SetRenderDrawColor(renderer, 255, 0 , 0, 0); // Màu đỏ (R, G, B, Alpha)
+        SDL_Rect rect = {x , y, 19, 19};
+        SDL_RenderFillRect(renderer, &rect);
+    }
 };
+
 #endif // _GRAPHICS__H
