@@ -2,18 +2,19 @@
 #define _DEFS__H
 
 #define BACKGROUND_IMG "back.jpg"
-
+#define ANIME_SPRITE_FILE "imagemove.png"
+#define PLAYER_FILE  "player.png"
+#define BIRD_SPRITE_FILE "birdanime"
 
 #define MAX_KEYBOARD_KEYS 350
 
-const int SCREEN_WIDTH = 900;
-const int SCREEN_HEIGHT = 700;
-const char* WINDOW_TITLE = "Hello World!";
+#define SCREEN_HEIGHT  700
+#define SCREEN_WIDTH   900
+#define WINDOW_TITLE "Hello World!"
 
 
 
-const char*  BIRD_SPRITE_FILE = "83127-sprite-area-line-animated-bird-film.png";
-const int BIRD_CLIPS[][4] = {
+ const int BIRD_CLIPS[][4] = {
     {0, 0, 182, 168},
     {181, 0, 182, 168},
     {364, 0, 182, 168},
@@ -33,7 +34,7 @@ const int BIRD_CLIPS[][4] = {
 };
 const int BIRD_FRAMES = sizeof(BIRD_CLIPS)/sizeof(int)/4;
 
-const char* ANIME_SPRITE_FILE = "imagemove.png";
+
 const int ANIME_CLIPS[][4] = {
     {0, 0, 130, 190},
     {140, 0, 130, 190},
@@ -48,8 +49,6 @@ const int ANIME_CLIPS[][4] = {
 
 };
 const int ANIME_FRAMES = sizeof(ANIME_CLIPS) / sizeof(int) / 4;
-
-const char* PLAYER_FILE = "player.png";
 
 
 const int PLAYER_CLIP_TOP[][4] =
