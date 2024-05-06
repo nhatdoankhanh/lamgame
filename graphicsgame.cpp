@@ -3,7 +3,7 @@
 #include "defs.h"
 #include <vector>
 #include <SDL_ttf.h>
-#include "graphics.h"
+#include "graphicsgame.h"
 
 void ScrollingBackground::setTexture(SDL_Texture* _texture)
 {

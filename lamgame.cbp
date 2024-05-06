@@ -32,13 +32,16 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="../../hiepsi/hiepsi/Untitled2.c">
-			<Option compilerVar="CC" />
-		</Unit>
+		<Unit filename="bestpath.cpp" />
+		<Unit filename="bestpath.h" />
 		<Unit filename="defs.h" />
-		<Unit filename="graphics.h" />
+		<Unit filename="graphicsgame.cpp" />
+		<Unit filename="graphicsgame.h" />
+		<Unit filename="logic.cpp" />
 		<Unit filename="logic.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="mix.cpp" />
+		<Unit filename="mix.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

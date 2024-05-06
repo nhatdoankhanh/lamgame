@@ -1,12 +1,12 @@
 #include <iostream>
 #include <SDL.h>
 #include <SDL_image.h>
-#include "graphics.cpp"
+#include "graphicsgame.h"
 #include "defs.h"
 #include "mix.h"
-#include "player.h"
 #include<SDL_mixer.h>
 #include "logic.h"
+#include "bestpath.h"
 #include <SDL_ttf.h>
 #include <chrono>
 #include <thread>
@@ -42,12 +42,6 @@ int main(int argc, char *argv[])
     playerr.init(playerTexture, PLAYERR_FRAMES, PLAYER_CLIP_RIGHT);
 
     SDL_Texture* menugame1 = graphics.loadTexture("menu1.png");
-  /*   TTF_Font* font = graphics.loadFont("Purisa-BoldOblique.ttf", 100);
-    SDL_Color color = {255, 0, 0, 255};
-    SDL_Texture* helloText = graphics.renderText("Hello", font, color);
-     graphics.renderTexture(helloText, 400, 400);*/
-
-
     bool quit = false;
     SDL_Event e;
     while( !quit ) {
@@ -82,28 +76,12 @@ int main(int argc, char *argv[])
             }
          SDL_Delay(50);
     }
-  /*  SDL_Texture* mapgame = graphics.loadTexture("mapgame1.png");
-    SDL_RenderCopy( graphics.renderer,mapgame, NULL, NULL);
-    SDL_RenderPresent(graphics.renderer);
-    graphics.presentScene();
-    bool endgame = false;
-    while( !endgame ) {
-        while( SDL_PollEvent( &e ) != 0 ) {
-            if( e.type == SDL_QUIT ) endgame = true;
-        }
-        SDL_RenderCopy( graphics.renderer,mapgame, NULL, NULL);
-        SDL_RenderPresent(graphics.renderer);
-        graphics.presentScene();
-        SDL_Delay(20);
-    }
-    */
-    playgame(graphics);
+    cout << "nhat" << endl;
+    playLevel(graphics);
     SDL_DestroyTexture(menugame1);
     SDL_DestroyTexture( background.texture );
     SDL_DestroyTexture( birdTexture ); birdTexture = nullptr;
     SDL_DestroyTexture( animeTexture ); animeTexture = nullptr;
-  //  TTF_CloseFont( font )
-
     if (mixer.gMusic != nullptr) Mix_FreeMusic( mixer.gMusic );
     graphics.quit();
     mixer.quitMixer();

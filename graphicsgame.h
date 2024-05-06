@@ -1,5 +1,5 @@
-#ifndef _GRAPHICS__H
-#define _GRAPHICS__H
+#ifndef _GRAPHICSGAME__H
+#define _GRAPHICSGAME__H
 
 #include <SDL.h>
 #include <SDL_image.h>
@@ -14,19 +14,7 @@ struct ScrollingBackground
     int width, height;
 
     void setTexture(SDL_Texture* _texture);
-  /*  {
-        texture = _texture;
-        SDL_QueryTexture(texture, NULL, NULL, &width, &height);
-    }
-*/
     void scroll(int distance);
-   /* {
-        scrollingOffset -= distance;
-        if(scrollingOffset < 0)
-        {
-            scrollingOffset = width;
-        }
-    }*/
 };
 
 struct Sprite {
@@ -60,4 +48,4 @@ struct Graphics
     void fillRed(int x, int y);
 };
 
-#endif // _GRAPHICS__H
+#endif // _GRAPHICSGAME__H
