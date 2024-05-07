@@ -9,6 +9,7 @@
 #include <ctime>
 #include<iostream>
 #include <string>
+#include <cstring>
 #include <chrono>
 #include <thread>
 #include"bestpath.h"
@@ -25,7 +26,7 @@ struct Point
 };
 
 bool check(int x, int y);
-Point ramdonEvent();
+Point randonEvent();
 struct Position
 {
     Point pointStart;
@@ -38,7 +39,6 @@ struct Position
     Position();
     Position(int levelGame);
 };
-Point ramdonEvent();
 
 struct checkAppearance
 {
@@ -55,9 +55,44 @@ struct checkAppearance
 
 using namespace std::chrono;
 
+struct Game
+{
+    char direction;
 
-void playgame(Graphics &graphics, bool passing);
-void playLevel(Graphics &graphics);
+    Mixer mixer;
+    Mix_Chunk *soundTrueMove;
+    Mix_Chunk *soundFalseMove;
+    Mix_Chunk *soundItems;
+    Mix_Chunk *soundLevelUp;
+    Sprite playerr;
+    Sprite playerl;
+    Sprite playert;
+    Sprite playerb;
+
+    SDL_Texture* playerrTexture;
+    SDL_Texture* playerlTexture;
+    SDL_Texture* playertTexture;
+    SDL_Texture* playerbTexture;
+    SDL_Texture* apple;
+    SDL_Texture* bananas;
+    SDL_Texture* mapgame;
+    SDL_Texture* itemend;
+
+    SDL_Color color = {255, 0, 0, 255};
+    TTF_Font* font;
+    TTF_Font* fontBig;
+    SDL_Texture* Time;
+    SDL_Texture* number;
+    SDL_Texture* LevelGame;
+    SDL_Texture* Level;
+    SDL_Texture* Lose;
+    SDL_Texture* nextLevel;
+
+    SDL_Event e;
+    bool playGame(Graphics &graphics, int level);
+    void playLevel(Graphics &graphics);
+    void destroyGame();
+};
 
 
 #endif

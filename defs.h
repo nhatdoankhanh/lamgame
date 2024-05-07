@@ -12,9 +12,11 @@
 #define ITEMEND "itemend.png"
 
 #define FRONT "font.ttf"
-#define MOVEGPLAYER "moveplayer.mp3"
+
 #define TRUEMOVE "truemove.mp3"
 #define FASLEMOVE "falsemove.mp3"
+#define ITEMS "items.mp3"
+#define LEVELUP "levelup.mp3"
 
 #define MAX_KEYBOARD_KEYS 350
 

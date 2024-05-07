@@ -12,7 +12,7 @@ bool check(int x, int y)
     return (GAME_WAY[y / 20][x / 20] == 0);
 }
 
-Point ramdonEvent()
+Point randomEvent()
 {
     Point point;
     int d1 = rand() % 900;
@@ -29,23 +29,12 @@ Point ramdonEvent()
 
 Position::Position()
 {
-    pointStart.x = 20;
-    pointStart.y = 20;
-    pointEnd = ramdonEvent();
-    Papple1 = ramdonEvent();
-    Pbananas1 = ramdonEvent();
-    Papple2 = ramdonEvent();
-    Pbananas2 = ramdonEvent();
-}
-Position::Position(int levelGame)
-{
-    pointStart.x = pointEnd.x;
-    pointStart.y = pointEnd.y;
-    pointEnd = ramdonEvent();
-    Papple1 = ramdonEvent();
-    Pbananas1 = ramdonEvent();
-    Papple2 = ramdonEvent();
-    Pbananas2 = ramdonEvent();
+    pointStart = randomEvent();
+    pointEnd = randomEvent();
+    Papple1 = randomEvent();
+    Pbananas1 = randomEvent();
+    Papple2 = randomEvent();
+    Pbananas2 = randomEvent();
 }
 
 checkAppearance::checkAppearance()
@@ -60,12 +49,12 @@ void checkAppearance::checkItemsGame(Position &position)
 {
     if(position.pointStart.x ==  position.Papple1.x && position.pointStart.y == position.Papple1.y)
     {
-        position.pointStart = ramdonEvent();
+        position.pointStart = randomEvent();
         checkapple1 = false;
     }
     if(position.pointStart.x ==  position.Papple2.x && position.pointStart.y == position.Papple2.y)
     {
-        position.pointStart = ramdonEvent();
+        position.pointStart = randomEvent();
         checkapple2 = false;
     }
     if(position.pointStart.x ==  position.Pbananas1.x && position.pointStart.y == position.Pbananas1.y)
@@ -78,14 +67,67 @@ void checkAppearance::checkItemsGame(Position &position)
     }
 }
 
-void playgame(Graphics &graphics, bool passing)
+void Game::destroyGame()
 {
-    cout << "1" << endl;
-    char direction;
+    SDL_DestroyTexture(mapgame);
+    SDL_DestroyTexture(playerbTexture);
+    playerbTexture = nullptr;
+    SDL_DestroyTexture(playertTexture);
+    playertTexture = nullptr;
+    SDL_DestroyTexture(playerlTexture);
+    playerlTexture = nullptr;
+    SDL_DestroyTexture(playerrTexture);
+    playerrTexture = nullptr;
+    SDL_DestroyTexture(itemend);
+    itemend = nullptr;
+    SDL_DestroyTexture(bananas);
+    bananas = nullptr;
+    SDL_DestroyTexture(apple);
+    apple = nullptr;
+
+    SDL_DestroyTexture(Time);
+    Time = NULL;
+    SDL_DestroyTexture(number);
+    number = NULL;
+    SDL_DestroyTexture(nextLevel);
+    nextLevel = NULL;
+    SDL_DestroyTexture(Lose);
+    Lose = NULL;
+
+    TTF_CloseFont(font);
+    TTF_CloseFont(fontBig);
+
+    if(soundFalseMove != nullptr)
+    {
+        Mix_FreeChunk(soundFalseMove);
+    }
+    if(soundTrueMove != nullptr)
+    {
+        Mix_FreeChunk(soundTrueMove);
+    }
+    if(soundItems != nullptr)
+    {
+        Mix_FreeChunk(soundItems);
+    }
+    if(soundLevelUp != nullptr)
+    {
+        Mix_FreeChunk(soundLevelUp);
+    }
+
+
+}
+
+
+bool Game::playGame(Graphics &graphics, int level)
+{
     Position position;
     checkAppearance checkItems;
     breadthFirstSreach shortestPathTime;
 
+    bool checkSoundBananas1 = true;
+    bool checkSoundBananas2 = true;
+    bool checkSoundApple1 = true;
+    bool checkSoundApple2 = true;
 
     shortestPathTime.level(position.pointStart.y / 20, position.pointStart.x / 20, position.pointEnd.y / 20, position.pointEnd.x / 20);
     breadthFirstSreach shortestPathBananas1;
@@ -102,29 +144,31 @@ void playgame(Graphics &graphics, bool passing)
     Mixer mixer;
     Mix_Chunk *soundTrueMove = mixer.loadSound(TRUEMOVE);
     Mix_Chunk *soundFalseMove = mixer.loadSound(FASLEMOVE);
+    Mix_Chunk *soundItems = mixer.loadSound(ITEMS);
+    Mix_Chunk *soundLevelUp = mixer.loadSound(LEVELUP);
+
+    playerrTexture = graphics.loadTexture(PLAYER_FILE);
+    playerr.init(playerrTexture, PLAYERR_FRAMES, PLAYER_CLIP_RIGHT);
+    playerlTexture = graphics.loadTexture(PLAYER_FILE);
+    playerl.init(playerlTexture, PLAYERL_FRAMES, PLAYER_CLIP_LEFT);
+    playertTexture = graphics.loadTexture(PLAYER_FILE);
+    playert.init(playertTexture, PLAYERT_FRAMES, PLAYER_CLIP_TOP);
+    playerbTexture = graphics.loadTexture(PLAYER_FILE);
+    playerb.init(playerbTexture, PLAYERB_FRAMES, PLAYER_CLIP_BOT);
+    apple = graphics.loadTexture(APPLE);
+    bananas = graphics.loadTexture(BANANAS);
+    mapgame = graphics.loadTexture(MAPGAME);
+    itemend = graphics.loadTexture(ITEMEND);
+
+    font = graphics.loadFont(FRONT, 25);
+    Time = graphics.renderText("TIME : ", font, color);
+    LevelGame = graphics.renderText("Level", font, color);
+
+    string s = to_string(level);
+    char const* pcharLevel = s.c_str();
+    Level = graphics.renderText(pcharLevel, font, color);
 
     bool quit = false;
-    SDL_Event e;
-    Sprite playerr;
-    Sprite playerl;
-    Sprite playert;
-    Sprite playerb;
-    SDL_Texture* playerrTexture = graphics.loadTexture(PLAYER_FILE);
-    playerr.init(playerrTexture, PLAYERR_FRAMES, PLAYER_CLIP_RIGHT);
-    SDL_Texture* playerlTexture = graphics.loadTexture(PLAYER_FILE);
-    playerl.init(playerlTexture, PLAYERL_FRAMES, PLAYER_CLIP_LEFT);
-    SDL_Texture* playertTexture = graphics.loadTexture(PLAYER_FILE);
-    playert.init(playertTexture, PLAYERT_FRAMES, PLAYER_CLIP_TOP);
-    SDL_Texture* playerbTexture = graphics.loadTexture(PLAYER_FILE);
-    playerb.init(playerbTexture, PLAYERB_FRAMES, PLAYER_CLIP_BOT);
-    SDL_Texture* apple = graphics.loadTexture(APPLE);
-    SDL_Texture* bananas = graphics.loadTexture(BANANAS);
-    SDL_Texture* mapgame = graphics.loadTexture(MAPGAME);
-    SDL_Texture* itemend = graphics.loadTexture(ITEMEND);
-    SDL_Color color = {255, 0, 0, 255};
-    TTF_Font* font = graphics.loadFont(FRONT, 25);
-    SDL_Texture* Time = graphics.renderText("TIME : ", font, color);
-    SDL_RenderCopy( graphics.renderer,mapgame, NULL, NULL);
     while( !quit )
     {
         while( SDL_PollEvent( &e ) != 0 )
@@ -144,7 +188,8 @@ void playgame(Graphics &graphics, bool passing)
                         direction = 'T';
                         mixer.play(soundTrueMove);
                     }
-                    else{
+                    else
+                    {
                         mixer.play(soundFalseMove);
                     }
                     break;
@@ -156,7 +201,8 @@ void playgame(Graphics &graphics, bool passing)
                         direction = 'B';
                         mixer.play(soundTrueMove);
                     }
-                    else{
+                    else
+                    {
                         mixer.play(soundFalseMove);
                     }
                     break;
@@ -167,7 +213,8 @@ void playgame(Graphics &graphics, bool passing)
                         direction = 'L';
                         mixer.play(soundTrueMove);
                     }
-                    else{
+                    else
+                    {
                         mixer.play(soundFalseMove);
                     }
                     break;
@@ -176,19 +223,15 @@ void playgame(Graphics &graphics, bool passing)
                     {
                         position.pointStart.x = position.pointStart.x + 20;
                         direction = 'R';
-                         mixer.play(soundTrueMove);
+                        mixer.play(soundTrueMove);
                     }
-                    else{
+                    else
+                    {
                         mixer.play(soundFalseMove);
                     }
                     break;
                 }
             }
-        }
-        if(position.pointEnd.x == position.pointStart.x && position.pointEnd.y == position.pointStart.y)
-        {
-            passing = true;
-            return;
         }
         SDL_RenderCopy( graphics.renderer,mapgame, NULL, NULL);
         auto current_time = steady_clock::now();
@@ -200,6 +243,15 @@ void playgame(Graphics &graphics, bool passing)
         {
             graphics.renderTexture(apple, position.Papple1.x, position.Papple1.y);
         }
+        else
+        {
+            if(checkSoundApple1 == true)
+            {
+                mixer.play(soundItems);
+                checkSoundApple1 = false;
+            }
+        }
+
         if(checkItems.checkbananas1)
         {
             graphics.renderTexture(bananas, position.Pbananas1.x, position.Pbananas1.y);
@@ -210,22 +262,45 @@ void playgame(Graphics &graphics, bool passing)
             {
                 graphics.fillRed(pathBananas1[i].second * 20, pathBananas1[i].first * 20);
             }
+            if(checkSoundBananas1 == true)
+            {
+                mixer.play(soundItems);
+                checkSoundBananas1 = false;
+            }
+
         }
+
         if(checkItems.checkapple2)
         {
             graphics.renderTexture(apple, position.Papple2.x, position.Papple2.y);
+        }
+        else
+        {
+            if(checkSoundApple2 == true)
+            {
+                mixer.play(soundItems);
+                checkSoundApple2 == false;
+            }
         }
 
         if(checkItems.checkbananas2)
         {
             graphics.renderTexture(bananas, position.Pbananas2.x, position.Pbananas2.y);
         }
-        else{
+        else
+        {
             for(int i = 0; i < pathBananas2.size(); i++)
             {
                 graphics.fillRed(pathBananas2[i].second * 20, pathBananas2[i].first * 20);
             }
+            if(checkSoundBananas2 == true)
+            {
+                mixer.play(soundItems);
+                checkSoundBananas2 == false;
+            }
+
         }
+
         graphics.renderTexture(itemend, position.pointEnd.x, position.pointEnd.y);
         if(direction == 'R')
         {
@@ -249,24 +324,46 @@ void playgame(Graphics &graphics, bool passing)
         };
         char buffer[50];
         sprintf(buffer,"%d", time_left);
-         if(buffer == "0")
+        if (std::strcmp(buffer, "0") == 0)
         {
             quit = true;
-            passing = false;
-            return;
+            return false;
         }
-        SDL_Texture* number = graphics.renderText(buffer, font, color);
+        number = graphics.renderText(buffer, font, color);
         graphics.renderTexture(Time, 540, 0);
         graphics.renderTexture(number, 680, 0);
+        graphics.renderTexture(LevelGame, 10, 0);
+        graphics.renderTexture(Level, 120, 0);
         graphics.presentScene();
+        if(position.pointEnd.x == position.pointStart.x && position.pointEnd.y == position.pointStart.y)
+        {
+            quit = true;
+            return true;
+            mixer.play(soundLevelUp);
+        }
         SDL_Delay(100);
     }
+    return false;
 }
-void playLevel(Graphics &graphics)
+
+void Game::playLevel(Graphics &graphics)
 {
-    bool passing = true;
-    while(passing == true)
+    int level = 1;
+    fontBig = graphics.loadFont(FRONT, 300);
+    while(playGame(graphics, level))
     {
-        playgame(graphics, passing);
+        level++;
+        nextLevel = graphics.renderText("NEXT", fontBig, color);
+        font = graphics.loadFont(FRONT, 300);
+        graphics.renderTexture(nextLevel, 100, 200);
+        graphics.presentScene();
+        SDL_Delay(1000);
     }
+    Lose = graphics.renderText("LOSE", fontBig, color);
+    graphics.renderTexture(Lose, 100, 200);
+    graphics.presentScene();
+    SDL_Delay(1000);
 }
+
+
+

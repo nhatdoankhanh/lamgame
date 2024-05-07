@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1714985048 source:f:\lamgame\lamgame\main.cpp
+1715012724 source:f:\lamgame\lamgame\main.cpp
 	<iostream>
 	<SDL.h>
 	<SDL_image.h>
@@ -24,7 +24,7 @@
 
 1710072295 source:f:\hiepsi\hiepsi\untitled2.c
 
-1714988498 f:\lamgame\lamgame\logic.h
+1715049846 f:\lamgame\lamgame\logic.h
 	<vector>
 	<queue>
 	<utility>
@@ -34,12 +34,13 @@
 	<ctime>
 	<iostream>
 	<string>
+	<cstring>
 	<chrono>
 	<thread>
 	"bestpath.h"
 	"mix.h"
 
-1714988449 f:\lamgame\lamgame\defs.h
+1715049846 f:\lamgame\lamgame\defs.h
 
 1710469305 f:\lamgame\lamgame\game.h
 
@@ -71,7 +72,7 @@
 	"graphicsgame.h"
 	"mix.h"
 
-1714985471 source:f:\lamgame\lamgame\logic.cpp
+1715052896 source:f:\lamgame\lamgame\logic.cpp
 	"logic.h"
 
 1714835792 source:e:\nmlt\ltnc\sdl2\baikho\bfs.cpp

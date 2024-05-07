@@ -77,7 +77,8 @@ int main(int argc, char *argv[])
          SDL_Delay(50);
     }
     cout << "nhat" << endl;
-    playLevel(graphics);
+    Game game;
+    game.playLevel(graphics);
     SDL_DestroyTexture(menugame1);
     SDL_DestroyTexture( background.texture );
     SDL_DestroyTexture( birdTexture ); birdTexture = nullptr;
