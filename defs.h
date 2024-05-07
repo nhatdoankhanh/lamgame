@@ -1,22 +1,22 @@
 #ifndef _DEFS__H
 #define _DEFS__H
 
-#define BACKGROUND_IMG "back.jpg"
-#define ANIME_SPRITE_FILE "imagemove.png"
-#define PLAYER_FILE  "player.png"
-#define BIRD_SPRITE_FILE "birdanime.png"
+#define BACKGROUND_IMG "anh/back.jpg"
+#define MAINMENU "anh/mainMenu.png"
+#define HELP "anh/help.png"
+#define PLAYER_FILE  "anh/player.png"
 
-#define APPLE "apple.png"
-#define BANANAS "bananas.png"
-#define MAPGAME "mapgame1.png"
-#define ITEMEND "itemend.png"
+#define APPLE "anh/apple.png"
+#define BANANAS "anh/bananas.png"
+#define MAPGAME "anh/mapgame1.png"
+#define ITEMEND "anh/itemend.png"
 
 #define FRONT "font.ttf"
 
-#define TRUEMOVE "truemove.mp3"
-#define FASLEMOVE "falsemove.mp3"
-#define ITEMS "items.mp3"
-#define LEVELUP "levelup.mp3"
+#define TRUEMOVE "mixer/truemove.mp3"
+#define FASLEMOVE "mixer/falsemove.mp3"
+#define ITEMS "mixer/items.mp3"
+#define LEVELUP "mixer/levelup.mp3"
 
 #define MAX_KEYBOARD_KEYS 350
 
@@ -138,7 +138,7 @@ const int GAME_WAY[35][45]
     1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1,
     1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1,
     1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1,
-    1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1,
     1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1,
     1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1,
     1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1,

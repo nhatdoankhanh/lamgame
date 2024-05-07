@@ -93,6 +93,11 @@ void Game::destroyGame()
     nextLevel = NULL;
     SDL_DestroyTexture(Lose);
     Lose = NULL;
+    SDL_DestroyTexture(highestLevel);
+    highestLevel = NULL;
+    SDL_DestroyTexture(high_level);
+    high_level = NULL;
+
 
     TTF_CloseFont(font);
     TTF_CloseFont(fontBig);
@@ -160,13 +165,22 @@ bool Game::playGame(Graphics &graphics, int level)
     mapgame = graphics.loadTexture(MAPGAME);
     itemend = graphics.loadTexture(ITEMEND);
 
+    std::ifstream file("highlevel.txt");
+    file >> highlevel;
+    file.close();
+
     font = graphics.loadFont(FRONT, 25);
     Time = graphics.renderText("TIME : ", font, color);
     LevelGame = graphics.renderText("Level", font, color);
+    high_level = graphics.renderText("High Level:", font, color);
 
-    string s = to_string(level);
-    char const* pcharLevel = s.c_str();
-    Level = graphics.renderText(pcharLevel, font, color);
+    std::string strLevel = to_string(level);
+    char const* pcharStrLevel = strLevel.c_str();
+
+    std::string strHighestLevel = to_string(highlevel);
+    char const* pcharStrHighestLevel = strHighestLevel.c_str();
+    Level = graphics.renderText(pcharStrLevel, font, color);
+    highestLevel = graphics.renderText(pcharStrHighestLevel, font, color);
 
     bool quit = false;
     while( !quit )
@@ -249,7 +263,10 @@ bool Game::playGame(Graphics &graphics, int level)
             {
                 mixer.play(soundItems);
                 checkSoundApple1 = false;
+
             }
+            position.Papple1.x = 0;
+            position.Papple1.y = 260;
         }
 
         if(checkItems.checkbananas1)
@@ -267,6 +284,8 @@ bool Game::playGame(Graphics &graphics, int level)
                 mixer.play(soundItems);
                 checkSoundBananas1 = false;
             }
+            position.Pbananas1.x = 0;
+            position.Pbananas1.y = 240;
 
         }
 
@@ -281,6 +300,8 @@ bool Game::playGame(Graphics &graphics, int level)
                 mixer.play(soundItems);
                 checkSoundApple2 == false;
             }
+            position.Papple1.x = 0;
+            position.Papple1.y = 220;
         }
 
         if(checkItems.checkbananas2)
@@ -298,6 +319,8 @@ bool Game::playGame(Graphics &graphics, int level)
                 mixer.play(soundItems);
                 checkSoundBananas2 == false;
             }
+            position.Pbananas2.x = 0;
+            position.Pbananas2.y = 200;
 
         }
 
@@ -334,6 +357,9 @@ bool Game::playGame(Graphics &graphics, int level)
         graphics.renderTexture(number, 680, 0);
         graphics.renderTexture(LevelGame, 10, 0);
         graphics.renderTexture(Level, 120, 0);
+        graphics.renderTexture(high_level, 200, 0);
+        graphics.renderTexture(highestLevel, 350, 0);
+
         graphics.presentScene();
         if(position.pointEnd.x == position.pointStart.x && position.pointEnd.y == position.pointStart.y)
         {
@@ -359,6 +385,17 @@ void Game::playLevel(Graphics &graphics)
         graphics.presentScene();
         SDL_Delay(1000);
     }
+    ifstream file("highlevel.txt");
+    file >> highlevel;
+    file.close();
+    if(level>highlevel)
+    {
+        highlevel=level;
+        ofstream files("highlevel.txt");
+        files << highlevel;
+        files.close();
+    }
+
     Lose = graphics.renderText("LOSE", fontBig, color);
     graphics.renderTexture(Lose, 100, 200);
     graphics.presentScene();

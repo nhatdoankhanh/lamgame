@@ -14,6 +14,7 @@
 #include <thread>
 #include"bestpath.h"
 #include"mix.h"
+#include <fstream>
 
 using namespace std;
 
@@ -87,8 +88,11 @@ struct Game
     SDL_Texture* Level;
     SDL_Texture* Lose;
     SDL_Texture* nextLevel;
+    SDL_Texture* highestLevel;
+    SDL_Texture* high_level;
 
     SDL_Event e;
+    int highlevel;
     bool playGame(Graphics &graphics, int level);
     void playLevel(Graphics &graphics);
     void destroyGame();
