@@ -42,6 +42,8 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="mix.cpp" />
 		<Unit filename="mix.h" />
+		<Unit filename="startinggame.cpp" />
+		<Unit filename="startinggame.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

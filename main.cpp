@@ -1,4 +1,4 @@
-#include <iostream>
+
 #include <SDL.h>
 #include <SDL_image.h>
 #include "graphicsgame.h"
@@ -8,7 +8,7 @@
 #include "logic.h"
 #include "bestpath.h"
 #include <SDL_ttf.h>
-#include "menuplayer.h"
+#include "startinggame.h"
 
 using namespace std;
 
@@ -21,6 +21,8 @@ int main(int argc, char *argv[])
 
     Mixer mixer;
     mixer.initMixer();
+    Mix_Music* gMusic = mixer.loadMusic(MUSIC);
+    mixer.play();
 
     Menu menu;
     menu.playMenu(graphics, mixer);
@@ -29,6 +31,7 @@ int main(int argc, char *argv[])
     Game game;
     game.playLevel(graphics);
 
+    if (gMusic != nullptr) Mix_FreeMusic( gMusic );
     menu.destroy(graphics, mixer);
     graphics.quit();
     mixer.quitMixer();

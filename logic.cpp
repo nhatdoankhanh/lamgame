@@ -129,10 +129,10 @@ bool Game::playGame(Graphics &graphics, int level)
     checkAppearance checkItems;
     breadthFirstSreach shortestPathTime;
 
-    bool checkSoundBananas1 = true;
-    bool checkSoundBananas2 = true;
-    bool checkSoundApple1 = true;
-    bool checkSoundApple2 = true;
+  //  bool checkSoundBananas1 = true;
+  //  bool checkSoundBananas2 = true;
+  //  bool checkSoundApple1 = true;
+  //  bool checkSoundApple2 = true;
 
     shortestPathTime.level(position.pointStart.y / 20, position.pointStart.x / 20, position.pointEnd.y / 20, position.pointEnd.x / 20);
     breadthFirstSreach shortestPathBananas1;
@@ -259,12 +259,6 @@ bool Game::playGame(Graphics &graphics, int level)
         }
         else
         {
-            if(checkSoundApple1 == true)
-            {
-                mixer.play(soundItems);
-                checkSoundApple1 = false;
-
-            }
             position.Papple1.x = 0;
             position.Papple1.y = 260;
         }
@@ -279,11 +273,6 @@ bool Game::playGame(Graphics &graphics, int level)
             {
                 graphics.fillRed(pathBananas1[i].second * 20, pathBananas1[i].first * 20);
             }
-            if(checkSoundBananas1 == true)
-            {
-                mixer.play(soundItems);
-                checkSoundBananas1 = false;
-            }
             position.Pbananas1.x = 0;
             position.Pbananas1.y = 240;
 
@@ -295,11 +284,6 @@ bool Game::playGame(Graphics &graphics, int level)
         }
         else
         {
-            if(checkSoundApple2 == true)
-            {
-                mixer.play(soundItems);
-                checkSoundApple2 == false;
-            }
             position.Papple1.x = 0;
             position.Papple1.y = 220;
         }
@@ -313,11 +297,6 @@ bool Game::playGame(Graphics &graphics, int level)
             for(int i = 0; i < pathBananas2.size(); i++)
             {
                 graphics.fillRed(pathBananas2[i].second * 20, pathBananas2[i].first * 20);
-            }
-            if(checkSoundBananas2 == true)
-            {
-                mixer.play(soundItems);
-                checkSoundBananas2 == false;
             }
             position.Pbananas2.x = 0;
             position.Pbananas2.y = 200;
@@ -364,8 +343,8 @@ bool Game::playGame(Graphics &graphics, int level)
         if(position.pointEnd.x == position.pointStart.x && position.pointEnd.y == position.pointStart.y)
         {
             quit = true;
-            return true;
             mixer.play(soundLevelUp);
+            return true;
         }
         SDL_Delay(100);
     }

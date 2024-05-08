@@ -17,6 +17,7 @@
 #define FASLEMOVE "mixer/falsemove.mp3"
 #define ITEMS "mixer/items.mp3"
 #define LEVELUP "mixer/levelup.mp3"
+#define MUSIC "mixer/music.mp3"
 
 #define MAX_KEYBOARD_KEYS 350
 
